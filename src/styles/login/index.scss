@@ -1,0 +1,56 @@
+$primary_color: #409eff;
+.login-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; // 以上三项实现中心居中
+
+  .login-box {
+
+   
+    width: 320px;
+    // background-color: antiquewhite;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px;
+    // 登录盒子上移，适配用户视觉
+    position: relative;
+    top: -100px;
+    .login-title {
+      color: $primary_color;
+      padding-bottom: 30px;
+    }
+
+    .login-options {
+      position: relative;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      .switch {
+        position: absolute;
+        left: 0;
+        display: flex;
+        align-items: center;
+        .switch-text {
+          margin-top: -1px;
+          margin-left: 2px;
+        }
+        span {
+          font-size: 14px;
+        }
+      }
+
+      .forgotPass {
+        position: absolute;
+        right: 0;
+        // 使用flex布局align-items和相对定位，分别完成垂直居中两边对齐
+      }
+    }
+
+    .loginBtn {
+      width: 100%;
+    }
+  }
+}
