@@ -46,7 +46,7 @@
       </div>
       <!-- 登陆按钮 -->
       <el-button
-        @click="LoginHandle"
+        @click="handleLogin"
         class="loginBtn"
         style="padding-bottom: 10px"
         type="primary"
@@ -60,15 +60,15 @@
 import '@/styles/login/index.scss' // 导入login样式
 import { reactive, ref } from 'vue'
 import { computed } from '@vue/reactivity'
-import store from '@/store/index'
+import { useStore } from 'vuex'
 import router from '@/router/index'
 import i18n from '@/i18n'
 import { ElLoading } from 'element-plus'
-
-// 记住密码 后保存
+const store = useStore()
+// 记住密码
 const ifRemember = ref(true)
 
-// 注册按钮事件
+// 注册按钮
 const handleToRegister_Pass = () => {
   router.push('/register_forgotpass')
 }
@@ -92,11 +92,10 @@ const falsepass = computed(() => {
   return t('msg.login_falsepass')
 })
 
-// 定义用户列表
-
-const LoginCount = reactive({
-  username: '',
-  password: '',
+// 定义用户列表,默认体验用户
+const LoginCount = ref({
+  username: 'admin',
+  password: '123456',
 })
 
 // 表单验证
@@ -130,8 +129,27 @@ const LoginRules = reactive({
   ],
 })
 
-// 登陆动作
-const LoginHandle = () => {}
+/**
+ * 登陆动作处理
+ */
+const loading = ref(false)
+
+const handleLogin = () => {
+  // 加载蒙版
+  loading.value = true
+  store
+    .dispatch('user/login', LoginCount.value) // 把用户列表传递给 login dispatch
+    .then(() => {
+      loading.value = false
+      // TODO: 登录后操作
+      // 登录后操作
+      router.push('/')
+    })
+    .catch((err) => {
+      console.log(err)
+      loading.value = false
+    })
+}
 </script>
 
 <style lang="scss" scoped></style>
