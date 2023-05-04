@@ -8,7 +8,8 @@
         :size="logoHeight"
       />
       <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
-        用户信息管理
+        <!-- 用户信息管理 -->
+        {{ $t('msg.menu_system_menu') }}
       </h1>
     </div>
     <sidebarMenu :routes="adminRouterList"></sidebarMenu>

@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import elementPlus from 'element-plus'
-
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import en from 'element-plus/lib/locale/lang/en'
 // i18n
 import i18n from './i18n'
 // 导入全局样式
@@ -24,4 +25,11 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 // 全局注册同步组件
 app.component('svgIcon', svgIcon)
-app.use(i18n).use(store).use(router).use(elementPlus).mount('#app')
+app
+  .use(i18n)
+  .use(store)
+  .use(router)
+  .use(elementPlus, {
+    locale: store.getters.language === 'en' ? en : zhCn,
+  })
+  .mount('#app')

@@ -3,6 +3,14 @@
     <Hamburger></Hamburger>
     <Breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
+      <!--搜索 -->
+      <header-search class="right-menu-item hover-effect"></header-search>
+      <!-- 全屏 -->
+      <screenfull class="right-menu-item hover-effect" />
+      <!-- 主题切换 -->
+      <theme-picker class="right-menu-item hover-effect"></theme-picker>
+      <!-- 语言组件 -->
+      <lang-select class="right-menu-item hover-effect" />
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -16,13 +24,13 @@
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
             <router-link to="/">
-              <el-dropdown-item> 首页 </el-dropdown-item>
+              <el-dropdown-item> {{ $t('msg.navBar.home') }} </el-dropdown-item>
             </router-link>
             <a target="_blank" href="">
-              <el-dropdown-item>课程主页</el-dropdown-item>
+              <el-dropdown-item>{{ $t('msg.navBar.course') }}</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click="logout">
-              退出登录
+              {{ $t('msg.navBar.logout') }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -35,6 +43,10 @@
 import { useStore } from 'vuex'
 import Hamburger from '@/components/hamburger.vue'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
+import LangSelect from '@/components/LangSelect'
+import ThemePicker from '@/components/ThemeSelect/index'
+import Screenfull from '@/components/Screenfull'
+import HeaderSearch from '@/components/headerSearch'
 const store = useStore()
 
 // 退出登陆事件
@@ -68,6 +80,17 @@ const logout = () => {
           --el-avatar-background-color: none;
           margin-right: 12px;
         }
+      }
+    }
+    ::v-deep .right-menu-item {
+      display: inline-block;
+      padding: 0 18px 0 0;
+      font-size: 24px;
+      color: #5a5e66;
+      vertical-align: text-bottom;
+
+      &.hover-effect {
+        cursor: pointer;
       }
     }
   }

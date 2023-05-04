@@ -25,6 +25,7 @@ const Routes = [
       {
         path: '/user/manage',
         name: 'userManage',
+        component: () => import('@/views/user-manage'),
         meta: {
           title: 'userManage',
           icon: 'coordinate',
