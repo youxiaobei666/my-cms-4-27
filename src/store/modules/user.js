@@ -44,7 +44,6 @@ export default {
     async getUserInfo(context) {
       const res = await getUserInfo()
       this.commit('user/setUserInfo', res)
-      console.log(typeof res)
       return res
     },
     logout() {

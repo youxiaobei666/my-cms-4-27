@@ -24,9 +24,6 @@ serve.interceptors.request.use(
 // 响应拦截器
 serve.interceptors.response.use(
   (response) => {
-    // log
-    console.log(response)
-
     // 解构出响应的数据和提示信息
     const { success, message, data } = response.data
     //   要根据success的成功与否决定下面的操作
@@ -39,7 +36,11 @@ serve.interceptors.response.use(
     }
   },
   (error) => {
-    // TODO: 将来处理 token 超时问题
+    // 处理 token 超时问题
+    if (error.response && error.response.data && error.response.data === 401) {
+      // token 超时
+      store.dispatch('user/logout')
+    }
     ElMessage.error(error.message) // 提示错误信息
     return Promise.reject(error)
   }

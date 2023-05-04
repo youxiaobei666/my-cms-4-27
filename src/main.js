@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import elementPlus from 'element-plus'
+
 // i18n
 import i18n from './i18n'
 // 导入全局样式
@@ -13,10 +14,14 @@ import './permission'
 import 'element-plus/dist/index.css'
 // 注册所有图标
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import svgIcon from './components/SvgIcon/index.vue'
+import installIcons from '@/icons'
 
 const app = createApp(App)
-
+installIcons(app)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+// 全局注册同步组件
+app.component('svgIcon', svgIcon)
 app.use(i18n).use(store).use(router).use(elementPlus).mount('#app')

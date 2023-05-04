@@ -94,7 +94,7 @@
 
 > 通过路由导航拦截器确定是不是要发起请求（因为有可能存在用户信息，就是用户已经登陆过）
 
-## 渲染用户头像菜单
+## 9. 渲染用户头像菜单
 
 拿到了 **用户数据，并且在 `getters` 中做了对应的快捷访问** ，那么接下来我们就可以根据数据渲染出 **用户头像内容**
 
@@ -103,7 +103,7 @@
 1. `avatar`
 2. `Dropdown`
 
-## 退出登录方案实现
+## 10. 退出登录方案实现
 
 **退出登录** 一直是一个通用的前端实现方案，对于退出登录而言，它的触发时机一般有两种：
 
@@ -121,7 +121,7 @@
 2. 清理掉权限相关配置
 3. 返回到登录页
 
-## 用户被动退出
+### 用户被动退出
 
 1. 主动处理：主要应对 `token` 失效
 2. 被动处理：同时应对 `token` 失效 与 **单用户登录**
@@ -145,4 +145,90 @@
    1. 如果未超过，则正常进行后续操作
    2. 如果超过，则进行 **退出登录** 操作
 
+单用户登陆方案：
 
+在响应拦截器中判读特点的状态码，例如 401
+
+## 11. 动态 menu 菜单处理方案解析
+
+制定：
+
+1. 对于单个路由规则而言（循环）：
+   1. 如果`meta && meta.title && meta.icon` ：则显示在 `menu` 菜单中，其中 `title` 为显示的内容，`icon` 为显示的图标
+      1. 如果存在 `children` ：则以 `el-sub-menu（子菜单）` 展示
+      2. 否则：则以 `el-menu-item（菜单项）` 展示
+   2. 否则：不显示在 `menu` 菜单中
+
+### 生成动态 menu 菜单
+
+整个 `menu` 菜单，分成三个组件来进行处理
+
+1. `SidebarMenu`：处理数据，作为最顶层 `menu` 载体
+2. `SidebarItem`：根据数据处理 **当前项为 `el-submenu` || `el-menu-item`**
+3. `MenuItem`：处理 `el-menu-item` 样式
+
+## 12. 动态面包屑
+
+**根据当前的 `url` 自动生成面包屑导航菜单**
+
+无论之后路径发生了什么变化，**动态面包屑** 都会正确的进行计算
+
+会分成三大步来实现
+
+1. 创建、渲染基本的面包屑组件
+2. 计算面包屑结构数据
+3. 根据数据渲染动态面包屑内容
+
+## 13. Icon 图标处理方案：SvgIcon
+
+一共分为两类：
+
+1. `element-plus` 的图标
+2. 自定义的 `svg` 图标
+
+对于 `element-plus` 的图标我们可以直接通过 `el-icon` 来进行显示，但是自定义图标的话，我们暂时还缺少显示的方式，所以说我们需要一个自定义的组件，来显示我们自定义的 `svg` 图标。
+
+那么这种自定义组件处理 **自定义 `svg` 图标的形式**，就是我们在面临这种问题时的通用解决方案。
+
+那么对于这个组件的话，它就需要拥有两种能力：
+
+1. 显示外部 `svg` 图标
+2. 显示项目内的 `svg` 图标
+
+处理 **内部的 `svg` 图标展示。**
+
+1.  首先导入所有的 `svg` 图标，导入到 `src -> icons -> svg` 处
+
+2.  在 `icons` 下创建 `index.js` 文件，该文件中需要完成两件事情：
+
+    1. 导入所有的 `svg` 图标
+    2. 完成 `SvgIcon` 的全局注册
+
+**使用 svg-sprite-loader 处理 svg 图标**
+
+```js
+const path = require('path')
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
+
+module.exports = {
+  chainWebpack(config) {
+    // 设置 svg-sprite-loader
+    config.module.rule('svg').exclude.add(resolve('src/icons')).end()
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]',
+      })
+      .end()
+  },
+}
+```
+
+最后全局注册组件就可以了
