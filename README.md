@@ -1,3 +1,5 @@
+![预览](https://user-images.githubusercontent.com/103173720/237040800-c6b5174a-adc8-4362-986d-9d630770e10e.jpg)
+
 # 项目技术点总结
 
 ## 1. 技术栈
