@@ -4,6 +4,10 @@
 
 **vue3 + elementPlus + node express + 全栈项目，可登陆注册使用**
 
+*** 后端代码:
+
+(后端代码)[https://github.com/youxiaobei666/my-cms-node]
+
 ## 2. 项目准备
 
 - 安装 `element-plus`、`i18n` 等依赖
