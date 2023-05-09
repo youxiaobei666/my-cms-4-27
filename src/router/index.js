@@ -35,6 +35,7 @@ const Routes = [
       {
         path: '/user/role',
         name: 'userRole',
+        component: () => import('@/views/role-list'),
         meta: {
           title: 'roleList',
           icon: 'operation',

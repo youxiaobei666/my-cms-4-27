@@ -20,3 +20,12 @@ export const getUserInfo = () => {
     url: '/profile',
   })
 }
+
+/**
+ * 获取所有用户列表
+ */
+export const getAllUserInfo = () => {
+  return request({
+    url: '/userinfo',
+  })
+}

@@ -27,6 +27,7 @@ router.beforeEach(async (to, from, next) => {
       if (!store.getters.hasUserInfo) {
         // 触发获取用户信息的 action
         await store.dispatch('user/getUserInfo')
+        await store.dispatch('user/getAllUserInfo')
       }
       next()
     }

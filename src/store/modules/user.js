@@ -1,4 +1,4 @@
-import { login, getUserInfo } from '@/utils/api/sys'
+import { login, getUserInfo, getAllUserInfo } from '@/utils/api/sys'
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
 import { TOKEN } from '@/constant' // 取得token常量
 import router from '@/router'
@@ -9,6 +9,7 @@ export default {
   state: () => ({
     token: getItem(TOKEN) || '',
     userInfo: {},
+    userAllInfo: [],
   }),
   mutations: {
     setToken(state, token) {
@@ -17,6 +18,9 @@ export default {
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
+    },
+    setAllUserInfo(state, userAllInfo) {
+      state.userAllInfo = userAllInfo
     },
   },
   actions: {
@@ -44,6 +48,11 @@ export default {
     async getUserInfo(context) {
       const res = await getUserInfo()
       this.commit('user/setUserInfo', res)
+      return res
+    },
+    async getAllUserInfo(context) {
+      const res = await getAllUserInfo()
+      this.commit('user/setAllUserInfo', res.userInfo)
       return res
     },
     logout() {
