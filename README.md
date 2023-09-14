@@ -4,7 +4,7 @@
 
 ## 1. 技术栈
 
-**vue3 + elementPlus + node express + 全栈项目，可登陆注册使用**
+**vue3 + elementPlus + node express + 全栈项目**
 
 *** 后端代码:
 

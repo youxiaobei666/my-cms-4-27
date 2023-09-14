@@ -72,11 +72,13 @@ const Routes = [
           title: 'articleRanking',
           icon: 'trophy',
         },
+        // component: 'layout',
         children: [],
       },
       {
         path: '/article/create',
         name: 'articleCreate',
+        // component: 'layout',
         meta: {
           title: 'articleCreate',
           icon: 'document',

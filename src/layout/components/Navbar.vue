@@ -10,7 +10,7 @@
       <!-- 主题切换 -->
       <theme-picker class="right-menu-item hover-effect"></theme-picker>
       <!-- 语言组件 -->
-      <lang-select class="right-menu-item hover-effect" />
+      <lang-select class="right-menu-item hover-effect"/>
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">

@@ -8,7 +8,6 @@
     <el-select
       ref="headerSearchSelectRef"
       class="header-search-select"
-      v-model="search"
       filterable
       default-first-option
       remote

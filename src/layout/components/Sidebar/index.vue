@@ -2,7 +2,6 @@
   <div class="">
     <div class="logo-container">
       <el-avatar
-        size="44"
         shape="square"
         src="https://p3-passport.byteimg.com/img/user-avatar/03fb8fef286c0520b75f4c9603024ccc~100x100.awebp"
         :size="logoHeight"
