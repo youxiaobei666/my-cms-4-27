@@ -47,6 +47,7 @@ export default {
     },
     async getUserInfo(context) {
       const res = await getUserInfo()
+      setItem('avator', res.img)
       this.commit('user/setUserInfo', res)
       return res
     },

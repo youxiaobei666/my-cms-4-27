@@ -3,7 +3,7 @@
     <div class="logo-container">
       <el-avatar
         shape="square"
-        src="https://p3-passport.byteimg.com/img/user-avatar/03fb8fef286c0520b75f4c9603024ccc~100x100.awebp"
+        :src="getItem('avator') || ''"
         :size="logoHeight"
       />
       <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
@@ -20,6 +20,7 @@ import { ref } from 'vue'
 import sidebarMenu from './sidebarMenu.vue'
 
 import store from '@/store'
+import { getItem } from '@/utils/storage'
 const logoHeight = 44
 // admin 路由表
 const adminRouterList = ref(store.getters.userInfo.adminRouterList)

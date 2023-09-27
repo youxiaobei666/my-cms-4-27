@@ -10,3 +10,26 @@ export const LANG = 'language'
 export const MAIN_COLOR = 'mainColor'
 // 默认色值
 export const DEFAULT_COLOR = '#409eff'
+// 个人爱好的枚举
+export const hobbyMap = [
+  {
+    label: '唱',
+    value: 1,
+    id: 1,
+  },
+  {
+    label: '跳',
+    value: 2,
+    id: 2,
+  },
+  {
+    label: 'rap',
+    value: 3,
+    id: 3,
+  },
+  {
+    label: '篮球',
+    value: 4,
+    id: 4,
+  }
+]

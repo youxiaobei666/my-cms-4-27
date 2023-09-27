@@ -30,10 +30,18 @@ export const getAllUserInfo = () => {
   })
 }
 
-export const uploadImg = () => {
+// 删除用户接口
+export const editUserInfo = (data) => {
   return request({
-    url: '/upload',
+    url: '/userinfo/save',
     method: 'POST',
     data,
+  })
+}
+
+export const deleteUser = (params) => {
+  return request({
+    url: `/userinfo/delete/${params}`,
+    method: 'DELETE'
   })
 }
