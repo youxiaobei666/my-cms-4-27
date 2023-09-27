@@ -15,6 +15,13 @@ module.exports = defineConfig({
           '^/api': '',
         },
       },
+      '/upload': {
+        target: 'http://localhost:3001/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/upload': '/upload',
+        },
+      },
     },
   },
   chainWebpack(config) {

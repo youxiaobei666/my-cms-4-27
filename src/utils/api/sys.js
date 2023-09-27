@@ -29,3 +29,11 @@ export const getAllUserInfo = () => {
     url: '/userinfo',
   })
 }
+
+export const uploadImg = () => {
+  return request({
+    url: '/upload',
+    method: 'POST',
+    data,
+  })
+}

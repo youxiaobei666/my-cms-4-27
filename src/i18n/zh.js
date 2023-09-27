@@ -1,4 +1,9 @@
 const ZH = {
+  // 表单
+  form_username: '用户名',
+  // 弹出框
+  dialog_edit: '编辑',
+  dialog_showBigImg: '查看大图',
   // 评论
   remark_title: '评论',
   remark_submit: '提交',

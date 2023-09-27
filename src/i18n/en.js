@@ -1,4 +1,9 @@
 const EN = {
+  // form
+  form_username: 'username',
+  // dialog
+  dialog_edit: 'edit',
+  dialog_showBigImg: 'show big img',
   // remark
   remark_title: 'remark',
   remark_submit: 'submit',

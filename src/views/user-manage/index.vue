@@ -1,35 +1,32 @@
 <template>
   <!-- tableall -->
-  <el-table
-    :data="tableData"
-    stripe
-    height="600px"
-    :scrollbar-always-on="true"
-  >
-    <el-table-column :label="$t('msg.menu_id')" width="100">
+  <el-table :data="store.getters.userAllInfo" stripe height="600px" :scrollbar-always-on="true">
+    <el-table-column :label="$t('msg.menu_id')">
       <template #default="scope">
         <div style="display: flex; align-items: center">
-          <el-icon><key></key></el-icon>
+          <el-icon>
+            <key></key>
+          </el-icon>
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </div>
       </template>
     </el-table-column>
     <!-- 姓名 -->
-    <el-table-column :label="$t('msg.menu_name')" width="100">
+    <el-table-column :label="$t('msg.menu_name')">
       <template #default="scope">
         <el-popover effect="light" trigger="hover" placement="top" width="auto">
           <template #default>
-            <div>{{ $t('msg.menu_name') }}: {{ scope.row.name }}</div>
+            <div>{{ $t('msg.menu_name') }}: {{ scope.row.username }}</div>
             <div>{{ $t('msg.menu_city') }}: {{ scope.row.city }}</div>
           </template>
           <template #reference>
-            <el-tag>{{ scope.row.name }}</el-tag>
+            <el-tag>{{ scope.row.username }}</el-tag>
           </template>
         </el-popover>
       </template>
     </el-table-column>
     <!-- age -->
-    <el-table-column :label="$t('msg.menu_age')" width="100">
+    <el-table-column :label="$t('msg.menu_age')">
       <template #default="scope">
         <div style="display: flex; align-items: center">
           <el-tag type="success">{{ scope.row.age }}</el-tag>
@@ -37,115 +34,209 @@
       </template>
     </el-table-column>
     <!-- city -->
-    <el-table-column :label="$t('msg.menu_city')" width="100">
+    <el-table-column :label="$t('msg.menu_city')">
       <template #default="scope">
         <div style="display: flex; align-items: center">
           <el-tag type="warning">{{ scope.row.city }}</el-tag>
         </div>
       </template>
     </el-table-column>
-
     <!-- email -->
-    <el-table-column :label="$t('msg.menu_email')" width="250">
+    <el-table-column :label="$t('msg.menu_email')" width="300">
       <template #default="scope">
         <div style="display: flex; align-items: center">
-          <el-icon><message></message></el-icon>
+          <el-icon>
+            <message></message>
+          </el-icon>
           <span style="margin-left: 10px">{{ scope.row.email }}</span>
         </div>
       </template>
     </el-table-column>
     <!-- hobby -->
-    <el-table-column :label="$t('msg.menu_hobby')" width="120">
+    <el-table-column :label="$t('msg.menu_hobby')">
       <template #default="scope">
         <div style="display: flex; align-items: center">
-          <el-icon><StarFilled /></el-icon>
+          <el-icon>
+            <StarFilled />
+          </el-icon>
           <span style="margin-left: 10px">{{ scope.row.hobby }}</span>
         </div>
       </template>
     </el-table-column>
     <!-- 操作 -->
-    <el-table-column :label="$t('msg.menu_setup')" width="160">
+    <el-table-column :label="$t('msg.menu_setup')">
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.$index, scope.row)">{{
           $t('msg.edit')
         }}</el-button>
-        <el-button
-          size="small"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-          >{{ $t('msg.delete') }}</el-button
-        >
+        <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">{{ $t('msg.delete')
+        }}</el-button>
       </template>
     </el-table-column>
     <!-- img -->
-    <el-table-column :label="$t('msg.menu_img')" width="200">
+    <el-table-column :label="$t('msg.menu_img')">
       <template #default="scope">
         <div style="display: flex; align-items: center">
           <el-avatar shape="square" :src="scope.row.img"></el-avatar>
-          <div @click="dialogVisible = true">
-            <el-button text @click="handleShowBigImg(scope.$index, scope.row)">
+          <div @click="imgVisible = true">
+            <el-button text @click.stop="handleShowBigImg(scope.$index, scope.row)">
               {{ $t('msg.popover_img') }}
             </el-button>
           </div>
-
-          <el-dialog v-model="dialogVisible" width="40%" :show-close="false">
-            <!-- 弹出内容 -->
-            <el-avatar :src="BigImgUrl" :size="300" shape="square"></el-avatar>
-            <!-- 弹出内容 -->
-            <template #footer>
-              <span class="dialog-footer">
-                <el-button>{{ $t('msg.popover_back') }}</el-button>
-                <el-button type="primary" @click="dialogVisible = false">
-                  {{ $t('msg.popover_confirm') }}
-                </el-button>
-              </span>
-            </template>
-          </el-dialog>
         </div>
       </template>
     </el-table-column>
   </el-table>
+
+  <!-- 图片框 -->
+  <el-dialog v-model="imgVisible" :title="$t('msg.dialog_showBigImg')" width="40%" :show-close="false">
+    <el-avatar :src="BigImgUrl" :size="300" shape="square"></el-avatar>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="imgVisible = false">{{ $t('msg.popover_back') }}</el-button>
+        <el-button type="primary" @click="imgVisible = false">
+          {{ $t('msg.popover_confirm') }}
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+
+  <!-- 编辑框 -->
+  <el-dialog v-model="editVisible" :title="$t('msg.dialog_edit')" width="30%">
+    <!-- 表单 -->
+    <el-form :form="editForm" label-width="80px">
+      <el-form-item :label="$t('msg.menu_name')">
+        <el-input v-model="editForm.name"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('msg.menu_age')">
+        <el-input v-model="editForm.age"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('msg.menu_img')">
+        <el-upload action="/upload" :file-list="fileList" name="file" :on-success="handleSuccess"
+          :on-remove="handleRemove" list-type="picture-card" :auto-upload="true" :limit="1" :headers="getAuthHeaders()">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <el-icon v-else class="avatar-uploader-icon">
+            <Plus />
+          </el-icon>
+        </el-upload>
+      </el-form-item>
+      <el-form-item :label="$t('msg.menu_city')">
+        <el-input v-model="editForm.city"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('msg.menu_email')">
+        <el-input v-model="editForm.email"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('msg.menu_hobby')">
+        <el-input v-model="editForm.hobby"></el-input>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="editVisible = false">{{ $t('msg.popover_back') }}</el-button>
+        <el-button type="primary" @click="handleConfirmEdit">
+          {{ $t('msg.popover_confirm') }}
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
 import store from '@/store'
-import { ref } from 'vue'
-
-// big img
-let BigImgUrl = ''
-let dialogVisible = ref(false)
-const handleShowBigImg = (index, row) => {
-  // 必须先绑定图片
-  BigImgUrl = row.img
-}
-
-// 编辑&删除
-const handleEdit = (index, row) => {}
-const handleDelete = (index, row) => {}
+import { ref, reactive } from 'vue'
+import { getItem } from "@/utils/storage";
+import { TOKEN } from "@/constant/index";
 
 // 表格数据源
 const data = store.getters.userAllInfo
-console.log(data)
-
-// 表格内部数据
-const tableData = []
-data.forEach((item, index) => {
-  tableData.push({
-    id: data[index].id,
-    name: data[index].username,
-    age: data[index].age,
-    img: data[index].img,
-    city: data[index].city,
-    email: data[index].email,
-    hobby: data[index].hobby,
-    setup: '删除',
-  })
+const BigImgUrl = ref('')
+const imgVisible = ref(false)
+const editVisible = ref(false)
+const editForm = reactive({
+  name: '',
+  id: '',
+  name: '',
+  age: '',
+  img: '',
+  city: '',
+  email: '',
+  hobby: '',
 })
-console.log(tableData)
+const toBeEditId = ref('')
+const fileList = ref([]);
+
+
+// 图片显示事件
+const handleShowBigImg = (index, row) => {
+  imgVisible.value = true
+  // 赋值图片 url
+  BigImgUrl.value = row.img
+}
+// 编辑 | 删除事件
+const handleEdit = (index, row) => {
+  editVisible.value = true
+  toBeEditId.value = row.id
+}
+// 确认修改用户信息事件
+const handleConfirmEdit = () => {
+  console.log(toBeEditId);
+  console.log(editForm);
+  editVisible.value = false
+}
+
+// 文件上传
+const getAuthHeaders = () => {
+  const token = getItem(TOKEN) || '';
+  return {
+    'Authorization': `Bearer ${token}`
+  };
+}
+const handleDelete = (index, row) => {
+  editVisible.value = true
+}
+
+const handleSuccess = (response, file) => {
+  fileList.value.push(file);
+  file.url = response.url;
+  editForm.img = response.url;
+};
+
+const handleRemove = (file) => {
+  fileList.value = fileList.value.filter(f => f.url !== file.url);
+  editForm.img = "";
+};
+
 </script>
 
 <style scoped lang="scss">
 .dialog-footer button:first-child {
   margin-right: 10px;
+}
+
+.avatar-uploader .avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed var(--el-border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  text-align: center;
 }
 </style>
