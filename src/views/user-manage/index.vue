@@ -2,7 +2,6 @@
   <!-- tableall -->
   <el-table
     :data="tableData"
-    style="width: 98%"
     stripe
     height="600px"
     :scrollbar-always-on="true"
