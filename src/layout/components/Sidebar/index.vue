@@ -11,7 +11,7 @@
         {{ $t('msg.menu_system_menu') }}
       </h1>
     </div>
-    <sidebarMenu :routes="adminRouterList"></sidebarMenu>
+    <sidebarMenu :routes='routerList'></sidebarMenu>
   </div>
 </template>
 
@@ -21,9 +21,12 @@ import sidebarMenu from './sidebarMenu.vue'
 
 import store from '@/store'
 import { getItem } from '@/utils/storage'
+
 const logoHeight = 44
-// admin 路由表
-const adminRouterList = ref(store.getters.userInfo.adminRouterList)
+// 路由表
+const routerList = ref([store.getters.routerList[2]])
+console.log(routerList.value)
+
 </script>
 
 <style lang="scss" scoped>

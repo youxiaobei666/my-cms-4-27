@@ -17,9 +17,10 @@
     ></sidebar-item>
   </el-menu>
 </template>
+
 <script setup>
 import sidebarItem from './sidebarItem.vue'
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 // 定义 props
@@ -37,6 +38,5 @@ const activeMenu = computed(() => {
 })
 </script>
 
-<script setup></script>
 
 <style lang="scss"></style>

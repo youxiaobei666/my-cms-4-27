@@ -1,97 +1,22 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import layout from '@/layout/index'
+import { userManageRoutes } from './privateRoutes/userManage'
 
-const Routes = [
-  {
-    path: '/',
-    redirect: '/user',
+export const publicRoutes = [{
+  path: '/',
+  redirect: '/user'
   },
   {
     path: '/login',
-    component: () => import('@/views/login/index'),
-  },
-  {
-    path: '/user',
-    redirect: '/user/manage',
-    component: layout,
-    meta: {
-      title: 'user',
-      icon: 'avatar',
-    },
-    props: {
-      default: false,
-    },
-    children: [
-      {
-        path: '/user/manage',
-        name: 'userManage',
-        component: () => import('@/views/user-manage'),
-        meta: {
-          title: 'userManage',
-          icon: 'coordinate',
-        },
-        children: [],
-      },
-      {
-        path: '/user/role',
-        name: 'userRole',
-        component: () => import('@/views/role-list'),
-        meta: {
-          title: 'roleList',
-          icon: 'operation',
-        },
-        children: [],
-      },
-      {
-        path: '/user/permission',
-        name: 'userPermission',
-        meta: {
-          title: 'permissionList',
-          icon: 'setting',
-        },
-        children: [],
-      },
-    ],
-  },
-  {
-    path: '/article',
-    redirect: '/article/ranking',
-    component: layout,
-    meta: {
-      title: 'article',
-      icon: 'tickets',
-    },
-    props: {
-      default: false,
-    },
-    children: [
-      {
-        path: '/article/ranking',
-        name: 'articleRanking',
-        meta: {
-          title: 'articleRanking',
-          icon: 'trophy',
-        },
-        // component: 'layout',
-        children: [],
-      },
-      {
-        path: '/article/create',
-        name: 'articleCreate',
-        // component: 'layout',
-        meta: {
-          title: 'articleCreate',
-          icon: 'document',
-        },
-        children: [],
-      },
-    ],
-  },
+    component: () => import('@/views/login/index')
+  }
 ]
+// 所有和权限相关的路由都称为私有路由，后期通过后端返回的有关权限的数组，过滤需要的的路由，用过滤好的路由，添加到公共路由表中。
+export const privateRoutes = [userManageRoutes]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: Routes,
+  // 在 publicRoutes 基础上，在用户登录完毕后，使用 addRoutes 添加路由
+  routes: publicRoutes
 })
 
 export default router

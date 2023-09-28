@@ -1,6 +1,8 @@
 import router from './router'
 import store from './store'
 import { isCheckTimeout } from './utils/auth'
+import { getItem } from '@/utils/storage'
+import { PERMISSION_NAME_LIST } from '@/constant'
 
 // 白名单
 const whiteList = ['/login']
@@ -22,12 +24,15 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       next('/')
     } else {
+
       // 判断用户资料是否获取
       // 若不存在用户信息，则需要获取用户信息
       if (!store.getters.hasUserInfo) {
         // 触发获取用户信息的 action
         await store.dispatch('user/getUserInfo')
         await store.dispatch('user/getAllUserInfo')
+        await store.dispatch('permission/filterRoutes', getItem(PERMISSION_NAME_LIST)) // 发起更新路由的操作
+        return next(to.path)
       }
       next()
     }

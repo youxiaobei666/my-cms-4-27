@@ -26,5 +26,6 @@ const getters = {
   language: (state) => state.app.language,
   sidebarOpened: (state) => state.app.sidebarOpened,
   mainColor: (state) => state.theme.mainColor,
+  routerList: (state) => state.permission.routs,
 }
 export default getters

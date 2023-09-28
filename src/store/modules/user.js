@@ -1,8 +1,9 @@
 import { login, getUserInfo, getAllUserInfo } from '@/utils/api/sys'
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
-import { TOKEN } from '@/constant' // 取得token常量
+import { PERMISSION_NAME_LIST, TOKEN } from '@/constant' // 取得常量
 import router from '@/router'
 import { setTimeStamp } from '@/utils/auth'
+import store from '@/store'
 
 export default {
   namespaced: true,
@@ -36,6 +37,8 @@ export default {
           .then((data) => {
             // 储存 token
             this.commit('user/setToken', data.token)
+            setItem(PERMISSION_NAME_LIST, data.permissionsNameList)
+            store.dispatch('permission/filterRoutes', getItem(PERMISSION_NAME_LIST)) // 发起更新路由的操作
             // 保存登陆时间
             setTimeStamp()
             resolve()

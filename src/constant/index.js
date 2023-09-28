@@ -33,3 +33,5 @@ export const hobbyMap = [
     id: 4,
   }
 ]
+
+export const PERMISSION_NAME_LIST = 'PERMISSION_NAME_LIST'
