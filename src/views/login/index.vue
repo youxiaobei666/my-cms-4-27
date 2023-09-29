@@ -70,7 +70,7 @@ const ifRemember = ref(true)
 
 // 注册按钮
 const handleToRegister_Pass = () => {
-  router.push('/register_forgotpass')
+  router.push('/register_forgotPass')
 }
 
 // i18n

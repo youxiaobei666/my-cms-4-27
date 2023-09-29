@@ -26,10 +26,11 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
-import { watchSwitchLang } from '@/utils/i18n'
+import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import Fuse from 'fuse.js'
+import store from '@/store'
+
 const router = useRouter()
 // 控制 search 显示
 const isShow = ref(false)
@@ -40,39 +41,65 @@ const onShowClick = () => {
   headerSearchSelectRef.value.focus()
 }
 // 数据源
-const searchPool = [
-  {
-    path: '/my',
-    title: ['个人中心'],
-  },
-  {
-    path: '/user',
-    title: ['用户'],
-  },
-  {
-    path: '/user/manage',
-    title: ['用户', '用户管理'],
-  },
-  {
-    path: '/user/info',
-    title: ['用户', '用户信息'],
-  },
-  {
-    path: '/article',
-    title: ['文章'],
-  },
-  {
-    path: '/article/ranking',
-    title: ['文章', '文章排名'],
-  },
-  {
-    path: '/article/create',
-    title: ['文章', '创建文章'],
-  },
-]
+// let searchPool = ref([
+//   {
+//     path: '/user',
+//     title: ['用户']
+//   },
+//   {
+//     path: '/user/manage',
+//     title: ['用户', '用户管理']
+//   },
+//   {
+//     path: '/auth',
+//     title: ['权限']
+//   },
+//   {
+//     path: '/auth/assign',
+//     title: ['权限', '权限分配']
+//   }
+// ])
+
+let searchPool = computed(() => {
+  return store.getters.language === 'en' ? [
+    {
+      path: '/user',
+      title: ['user']
+    },
+    {
+      path: '/user/manage',
+      title: ['user', 'userManage']
+    },
+    {
+      path: '/auth',
+      title: ['auth']
+    },
+    {
+      path: '/auth/assign',
+      title: ['auth', 'authAssign']
+    }
+  ] : [
+    {
+      path: '/user',
+      title: ['用户']
+    },
+    {
+      path: '/user/manage',
+      title: ['用户', '用户管理']
+    },
+    {
+      path: '/auth',
+      title: ['权限']
+    },
+    {
+      path: '/auth/assign',
+      title: ['权限', '权限分配']
+    }
+  ]
+})
 
 // 搜索库
-const fuse = new Fuse(searchPool, {
+let fuse = new Fuse(searchPool.value, {
   // 是否按优先级进行排序
   shouldSort: true,
   // 匹配长度超过这个值的才会被认为是匹配的
@@ -83,12 +110,12 @@ const fuse = new Fuse(searchPool, {
   keys: [
     {
       name: 'title',
-      weight: 0.7,
+      weight: 1
     },
-    {
-      name: 'path',
-      weight: 0.3,
-    },
+    // {
+    //   name: 'path',
+    //   weight: 0.3,
+    // },
   ],
 })
 // 搜索结果
@@ -125,10 +152,49 @@ watch(isShow, (val) => {
   }
 })
 
-// 语言
-watchSwitchLang(() => {
-  // 将数据源变成英文
-})
+// // 语言
+// watchSwitchLang(() => {
+//   console.log('bianl')
+//    if(store.getters.language === 'en') {
+//      searchPool = [
+//        {
+//          path: '/user',
+//          title: ['user'],
+//        },
+//        {
+//          path: '/user/manage',
+//          title: ['user', 'userManage'],
+//        },
+//        {
+//          path: '/auth',
+//          title: ['auth']
+//        },
+//        {
+//          path: '/auth/assign',
+//          title: ['auth', 'authAssign']
+//        }
+//      ]
+//    } else {
+//      searchPool = [
+//        {
+//          path: '/user',
+//          title: ['用户'],
+//        },
+//        {
+//          path: '/user/manage',
+//          title: ['用户', '用户管理'],
+//        },
+//        {
+//          path: '/auth',
+//          title: ['权限']
+//        },
+//        {
+//          path: '/auth/assign',
+//          title: ['权限', '权限分配']
+//        }
+//      ]
+//    }
+// })
 </script>
 
 <style lang="scss" scoped>

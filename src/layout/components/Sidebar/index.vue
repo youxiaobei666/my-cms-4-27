@@ -24,8 +24,10 @@ import { getItem } from '@/utils/storage'
 
 const logoHeight = 44
 // 路由表
-const routerList = ref([store.getters.routerList[2]])
-console.log(routerList.value)
+const formatStore = store.getters.routerList.filter((i, index) => {
+  return i.name
+})
+const routerList = ref(formatStore)
 
 </script>
 

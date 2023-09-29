@@ -23,7 +23,7 @@ export const userManageRoutes = {
       component: () => import('@/views/user-manage'),
       meta: {
         title: 'userManage',
-        icon: 'coordinate'
+        icon: 'userManage'
       },
       children: []
     }]

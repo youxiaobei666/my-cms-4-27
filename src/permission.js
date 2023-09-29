@@ -5,7 +5,7 @@ import { getItem } from '@/utils/storage'
 import { PERMISSION_NAME_LIST } from '@/constant'
 
 // 白名单
-const whiteList = ['/login']
+const whiteList = ['/login', '/register_forgotPass', '/401', '/404']
 /**
  * 路由前置守卫
  */
