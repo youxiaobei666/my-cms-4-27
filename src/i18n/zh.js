@@ -61,7 +61,7 @@ const ZH = {
   menu_hobby: '爱好',
   menu_setup: '操作',
   menu_password: '密码',
-  menu_system_menu: '宠友社后台',
+  menu_system_menu: '宠友社',
   menu_chats_center: '交流中心',
   menu_system_setup: '系统设置',
   // 顶部导航
@@ -100,10 +100,14 @@ const ZH = {
     `,
   },
   route: {
-    user: '用户',
+    user: '用户设置',
     userManage: '用户管理',
     auth: '权限管理',
-    authAssign: '权限分配'
+    authAssign: '权限分配',
+    AFS: '宠友社',
+    AFS_about: '关于我们',
+    profile: '个人中心',
+    profile_home: '个人主页'
   },
   toast: {
     switchLangSuccess: '切换语言成功',
@@ -127,8 +131,7 @@ const ZH = {
     screenfull: '全屏替换',
     lang: '国际化',
     guide: '功能引导',
-    home: '首页',
-    course: '课程主页',
+    home: '个人主页',
     logout: '退出登录',
   },
 }

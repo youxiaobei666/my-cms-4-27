@@ -1,6 +1,6 @@
 <template>
   <div>
-123
+    正在努力建设中~
   </div>
 </template>
 

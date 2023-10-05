@@ -98,10 +98,14 @@ const EN = {
     `,
   },
   route: {
-    user: 'user',
+    user: 'user setting',
     userManage: 'user manage',
     auth: 'auth manage',
-    authAssign: 'permission  assign'
+    authAssign: 'permission  assign',
+    AFS: 'animal friend society',
+    AFS_about: 'about us',
+    profile: 'user home page',
+    profile_home: 'home'
   },
   toast: {
     switchLangSuccess: 'Switch Language Success',
@@ -126,7 +130,7 @@ const EN = {
     lang: 'Globalization',
     guide: 'Function Guide',
     home: 'Home',
-    course: 'Course homepage',
+
     logout: 'Log out',
   },
 }

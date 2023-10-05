@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { userManageRoutes } from './privateRoutes/userManage'
 import { authManageRoutes } from './privateRoutes/authManage'
+import layout from '@/layout'
 
 export const publicRoutes = [{
   path: '/',
@@ -13,6 +14,55 @@ export const publicRoutes = [{
   {
     path: '/register_forgotPass',
     component: () => import('@/views/changePassword/index')
+  },
+  // 个人主页
+  {
+    path: '/profile',
+    redirect: '/profile/home',
+    component: layout,
+    name: 'profile',
+    meta: {
+      title: 'profile',
+      icon: 'profile'
+    },
+    props: {
+      default: false
+    },
+    children: [
+      {
+        path: '/AFS/aboutUs',
+        component: () => import('@/views/profile/index.vue'),
+        meta: {
+          title: 'profile_home',
+          icon: 'profile_home'
+        },
+        children: []
+      }
+    ]
+  },
+  {
+    path: '/AFS',
+    component: layout,
+    redirect: '/AFS/aboutUs',
+    name: 'AFS',
+    meta: {
+      title: 'AFS',
+      icon: 'AFS',
+    },
+    props: {
+      default: false,
+    },
+    children: [
+      {
+        path: '/AFS/aboutUs',
+        component: () => import('@/views/AFS/index.vue'),
+        meta: {
+          title: 'AFS_about',
+          icon: 'AFS',
+        },
+        children: []
+      }
+    ]
   },
   {
     path: '/401',

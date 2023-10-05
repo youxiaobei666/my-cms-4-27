@@ -9,7 +9,7 @@ export const LANG = 'language'
 // 主题色保存的 key
 export const MAIN_COLOR = 'mainColor'
 // 默认色值
-export const DEFAULT_COLOR = '#409eff'
+export const DEFAULT_COLOR = '#f36f2b'
 // 个人爱好的枚举
 export const hobbyMap = [
   {

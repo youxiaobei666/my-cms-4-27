@@ -22,13 +22,16 @@ export default {
       // 路由权限匹配
       permissionNameList.forEach(key => {
         // 权限名 与 路由的 name 匹配
-        routes.push(...privateRoutes.filter(item => item.name === key))
+        routes.push(...privateRoutes.filter(item => {
+          return  item.name === key || item.name === 'AFS' || item.name === 'profile'
+        }))
       })
       // 最后添加 不匹配路由进入 404
       routes.push({
         path: '/:catchAll(.*)',
         redirect: '/404'
       })
+
       // 设置最新的路由
       context.commit('setRoutes', routes)
       return routes

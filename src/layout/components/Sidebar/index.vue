@@ -3,7 +3,7 @@
     <div class="logo-container">
       <el-avatar
         shape="square"
-        :src="getItem('avator') || ''"
+        src='https://picx.zhimg.com/80/v2-06fa98e9fb5a71b77c6e956a71f05b4f_qhd.jpg'
         :size="logoHeight"
       />
       <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
@@ -20,7 +20,6 @@ import { ref } from 'vue'
 import sidebarMenu from './sidebarMenu.vue'
 
 import store from '@/store'
-import { getItem } from '@/utils/storage'
 
 const logoHeight = 44
 // 路由表

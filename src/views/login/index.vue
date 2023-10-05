@@ -32,7 +32,7 @@
         <div class="switch">
           <!-- 记住密码 -->
           <el-switch size="small" v-model="ifRemember"></el-switch
-          ><span class="switch-text" style="color: #409eff; font-weight: 500">{{
+          ><span class="switch-text" style="font-weight: 500">{{
             $t('msg.login_remember')
           }}</span>
         </div>
@@ -152,4 +152,9 @@ const handleLogin = () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/styles/variables.module";
+.switch {
+  color: $menuBg
+}
+</style>
